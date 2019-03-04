@@ -2,8 +2,17 @@ import React, { Component} from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import uuid from 'uuid';
+import { connect} from 'react-redux';
+import {getTrades} from '../actions/tradeActions';
+import PropTypes from 'prop-types';
 
 class ActiveTrades extends Component {
+
+    componentDidMount() {
+        this.props.getTrades();
+    }
+
+    /*
     state = {
         trades: [
             { id: uuid(), name:'BTC/USD' },
@@ -13,9 +22,10 @@ class ActiveTrades extends Component {
             { id: uuid(), name:'ETH/USD' }
         ]
     }
+    */
 
     render() {
-        const { trades } = this.state;
+        const { trades } = this.props.trade;
         return(
             <Container>
                 <Button 
@@ -43,6 +53,7 @@ class ActiveTrades extends Component {
                                     size="sm"
                                     onClick={() => {
                                         this.setState(state => ({ 
+                                            //goes through page state(id: trades) and filters out all except the one's equal id
                                             trades: state.trades.filter(trade => trade.id !== id)
                                         }));
                                     }}
@@ -57,4 +68,16 @@ class ActiveTrades extends Component {
         );
     }
 }
-export default ActiveTrades;
+
+
+//mapping redux state to component prop property
+
+ActiveTrades.propTypes = {
+    getTrades: PropTypes.func.isRequired,
+    trade: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state)=> ({
+    trade: state.trade
+});
+export default connect(mapStateToProps, { getTrades })(ActiveTrades);
