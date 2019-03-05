@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import AppNavbar from './components/AppNavbar';
 import ActiveTrades from './components/ActiveTrades';
-
+import TradeModal from './components/tradeModal';
+import {Container} from 'reactstrap';
 import {Provider} from 'react-redux';
 import store from './store';
 
@@ -14,7 +15,10 @@ class App extends Component {
       <Provider store = {store}>
         <div className="App">
             <AppNavbar />
+            <Container>
+            <TradeModal />>
             <ActiveTrades />
+            </Container>
         </div>
       </Provider>
     );

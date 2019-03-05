@@ -1,15 +1,18 @@
 import React, { Component} from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import uuid from 'uuid';
 import { connect} from 'react-redux';
-import {getTrades} from '../actions/tradeActions';
+import {getTrades, deleteTrade} from '../actions/tradeActions';
 import PropTypes from 'prop-types';
 
 class ActiveTrades extends Component {
 
     componentDidMount() {
         this.props.getTrades();
+    }
+
+    onDeleteClick = id => {
+        this.props.deleteTrade(id);
     }
 
     /*
@@ -28,20 +31,6 @@ class ActiveTrades extends Component {
         const { trades } = this.props.trade;
         return(
             <Container>
-                <Button 
-                color="dark" 
-                style={{marginBottom: '2rem'}} 
-                onClick={() => {
-                    const name = prompt('Enter Trade');
-                    if(name) {
-                        this.setState(state => ({
-                            trades: [...state.trades, { id: uuid(), name }]
-                        }));
-                    }
-                }}
-                >
-                Add Trade
-                </Button>
                 <ListGroup>
                     <TransitionGroup className = "trade-list">
                         {trades.map(({ id, name}) => (
@@ -51,13 +40,10 @@ class ActiveTrades extends Component {
                                     className="remove-btn"
                                     color="danger"
                                     size="sm"
-                                    onClick={() => {
-                                        this.setState(state => ({ 
-                                            //goes through page state(id: trades) and filters out all except the one's equal id
-                                            trades: state.trades.filter(trade => trade.id !== id)
-                                        }));
-                                    }}
-                                    >&times;</Button>
+                                    onClick={this.onDeleteClick.bind(this,id)}
+                                    >
+                                    &times;
+                                    </Button>
                                     {name}
                                 </ListGroupItem>
                             </CSSTransition>
@@ -80,4 +66,4 @@ ActiveTrades.propTypes = {
 const mapStateToProps = (state)=> ({
     trade: state.trade
 });
-export default connect(mapStateToProps, { getTrades })(ActiveTrades);
+export default connect(mapStateToProps, { getTrades, deleteTrade })(ActiveTrades);
