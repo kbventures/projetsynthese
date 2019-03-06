@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const spots = require('./routes/api/spots');
 const margins = require('./routes/api/margins');
+const trades = require('./routes/api/trades');
 
 const app = express();
 
@@ -25,6 +26,7 @@ mongoose
   
      app.use('/api/spots',spots);
      app.use('/api/margins',margins);
+     app.use('/api/trades',trades);
 
     const port = process.env.PORT || 5000;
 

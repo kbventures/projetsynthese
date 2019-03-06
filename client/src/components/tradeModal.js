@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 import {connect} from 'react-redux';
 import {addTrade} from '../actions/tradeActions';
-import uuid from 'uuid';
+
 
 
 class TradeModal extends Component {
@@ -33,7 +33,6 @@ class TradeModal extends Component {
         e.preventDefault();
 
         const newTrade = {
-            id: uuid(),
             name: this.state.name
         }
         //add trade via addTrade action

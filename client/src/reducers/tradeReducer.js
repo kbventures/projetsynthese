@@ -2,30 +2,27 @@
 
 
 
-import uuid from 'uuid';
+
 import { GET_TRADES, ADD_TRADE, DELETE_TRADE, TRADES_LOADING} from '../actions/types';
 
 //static data that will eventually come from back end
 const initialState = {
-    trades: [
-        { id: uuid(), name:'BTC/USD' },
-        { id: uuid(), name:'BTC/ETH' },
-        { id: uuid(), name:'BTC/LTC' },
-        { id: uuid(), name:'BTC/EOS' },
-        { id: uuid(), name:'ETH/USD' }
-    ]
+    trades: [],
+    loading: false
 };
 
 export default function(state = initialState, action){
     switch(action.type) {
         case GET_TRADES:
             return {
-                ...state
+                ...state,
+                trades: action.payload,
+                loading: false
             };
         case DELETE_TRADE:
             return {
                 ...state,
-                trades: state.trades.filter(trade => trade.id !== action.payload)
+                trades: state.trades.filter(trade => trade._id !== action.payload) //mongo as _id
             };
         case ADD_TRADE:
             return {
@@ -36,8 +33,9 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 loading: true
-            }
+            };
             default:
                 return state;
     }
 }
+

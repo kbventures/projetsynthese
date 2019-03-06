@@ -26,21 +26,21 @@ class ActiveTrades extends Component {
         ]
     }
     */
-
+    //_id mongo db id
     render() {
         const { trades } = this.props.trade;
         return(
             <Container>
                 <ListGroup>
                     <TransitionGroup className = "trade-list">
-                        {trades.map(({ id, name}) => (
-                            <CSSTransition key={id} timeout={500} classNames="fade">
+                        {trades.map(({ _id, name}) => (
+                            <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <ListGroupItem>
                                     <Button
                                     className="remove-btn"
                                     color="danger"
                                     size="sm"
-                                    onClick={this.onDeleteClick.bind(this,id)}
+                                    onClick={this.onDeleteClick.bind(this,_id)}
                                     >
                                     &times;
                                     </Button>
