@@ -33,7 +33,7 @@ class ActiveTrades extends Component {
             <Container>
                 <ListGroup>
                     <TransitionGroup className = "trade-list">
-                        {trades.map(({ _id, name}) => (
+                        {trades.map(({ _id, name, amount}) => (
                             <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <ListGroupItem>
                                     <Button
@@ -44,7 +44,7 @@ class ActiveTrades extends Component {
                                     >
                                     &times;
                                     </Button>
-                                    {name}
+                                    Pair: {name}   Amount: {amount}
                                 </ListGroupItem>
                             </CSSTransition>
                         ))}

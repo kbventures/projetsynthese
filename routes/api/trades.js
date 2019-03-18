@@ -19,9 +19,10 @@ router.get('/', (req, res) => {
 // @access  Public
 router.post('/', (req, res) => {
   const newTrade = new Trade({
-    name: req.body.name
+    name: req.body.name,
+    amount: req.body.amount
   });
-
+  console.log(newTrade.amount);
   newTrade.save().then(trade => res.json(trade));
 });
 

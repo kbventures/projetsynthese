@@ -17,23 +17,41 @@ import {addTrade} from '../actions/tradeActions';
 class TradeModal extends Component {
     state = {
         modal: false, 
-        name: '' 
+        name: '',
+        amount: '' 
     }
+
+    
     toggle = () => {
         this.setState({
             modal: !this.state.modal
         });
     }
     
+    /*
+    onChange1 = (e) => {
+        this.setState({ [e.target.name]: e.target.value }, function () { console.log(this.state.name);
+        });
+    }
+    This didn't work because you mixed your schema name with html target name
+    
+    onChange2 = (e) => {
+        this.setState({ [e.target.amount]: e.target.value }, function () { console.log(this.state.amount);
+    });
+    }
+*/
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
+        //console.log(event.target.name),  // name of the form element
+        //console.log(event.target.value)} // the value of the form element
     }
 
-    onSubmit = e => {
+    onSubmit = (e) => {
         e.preventDefault();
 
         const newTrade = {
-            name: this.state.name
+            name: this.state.name,
+            amount: this.state.amount
         }
         //add trade via addTrade action
         this.props.addTrade(newTrade);
@@ -49,7 +67,7 @@ class TradeModal extends Component {
                 color="dark" 
                 style={{marginBottom: '2rem'}} 
                 onClick={this.toggle}
-                >AddItem</Button>
+                >AddTrade</Button>
                 <Modal
                     isOpen={this.state.modal}
                     toggle={this.toggle}
@@ -58,12 +76,19 @@ class TradeModal extends Component {
                     <ModalBody>
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
-                                <Label for="trade">Trade</Label>
+                            <Label for="trade">Trade</Label>
                                 <Input
                                     type="text"
-                                    name="name"
-                                    id="trade"
-                                    placeholder="Add trade"
+                                    name="name" //target
+                                    id="name"
+                                    placeholder="Pair"
+                                    onChange={this.onChange}
+                                />
+                                 <Input
+                                    type="text"
+                                    name="amount" //target
+                                    id="amount"
+                                    placeholder="Amount"
                                     onChange={this.onChange}
                                 />
                                 <Button 

@@ -1,8 +1,4 @@
 //trade reducer: reducers are where the actual state will go
-
-
-
-
 import { GET_TRADES, ADD_TRADE, DELETE_TRADE, TRADES_LOADING} from '../actions/types';
 
 //static data that will eventually come from back end
